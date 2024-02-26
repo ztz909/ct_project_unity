@@ -1,18 +1,27 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [SerializeField] private AudioClip otherClip;
     [SerializeField] private AudioSource source;
+    [SerializeField] private AudioSource source2;
+    [SerializeField] private AudioClip navClip;
+    [SerializeField] private AudioClip loadClip;
+
     private void Start()
     {
         source = GetComponent<AudioSource>();
     }
 
-    public void ChangeAudioClip()
+    public void PlayNavSound()
     {
-        source.clip = otherClip;
+        source.Play();
+    }
+
+    public void PlayLoadSound()
+    {
+        source2.Play();
     }
 }

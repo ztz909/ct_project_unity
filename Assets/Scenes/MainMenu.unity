@@ -212,6 +212,7 @@ GameObject:
   m_Component:
   - component: {fileID: 121497076}
   - component: {fileID: 121497077}
+  - component: {fileID: 121497079}
   - component: {fileID: 121497078}
   m_Layer: 0
   m_Name: Audio
@@ -340,11 +341,109 @@ MonoBehaviour:
   m_GameObject: {fileID: 121497075}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5161366fe457832449e94bf1279232e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 09de6d319bc1ad34bb1efc930e4b2b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  otherClip: {fileID: 8300000, guid: 0043184c4ff1b7a499863a7fd37ae793, type: 3}
-  source: {fileID: 0}
+  source: {fileID: 121497079}
+  source2: {fileID: 121497077}
+  navClip: {fileID: 8300000, guid: 32d45424c456cd047919c5f5572212ed, type: 3}
+  loadClip: {fileID: 8300000, guid: 0043184c4ff1b7a499863a7fd37ae793, type: 3}
+--- !u!82 &121497079
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121497075}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 0043184c4ff1b7a499863a7fd37ae793, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &207629086
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +917,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1175518181}
-  - component: {fileID: 1175518182}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -841,18 +939,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1175518182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1175518179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8501319dd0cb87d4e855a604c3304877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1318477842
 GameObject:
   m_ObjectHideFlags: 0
@@ -943,6 +1029,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blackScreen: {fileID: 1318477844}
   transitionSpeed: 0.5
+  _fadeFromBlack: 0
+  _fadeToBlack: 0
 --- !u!1 &1336638267
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,7 +1302,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuOptions: []
   menuManager: {fileID: 0}
-  audioSource: {fileID: 0}
   audioManager: {fileID: 0}
   transitionController: {fileID: 0}
   positionIndex: 0

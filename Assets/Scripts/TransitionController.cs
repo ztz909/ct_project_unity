@@ -8,8 +8,8 @@ public class TransitionController : MonoBehaviour
     [SerializeField] private Image blackScreen;
     [SerializeField] private float transitionSpeed;
 
-    private bool _fadeFromBlack;
-    private bool _fadeToBlack;
+    public bool _fadeFromBlack;
+    public bool _fadeToBlack;
 
     public void FadeToBlack()
     {

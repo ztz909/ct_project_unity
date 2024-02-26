@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 public class MenuNavigation : MonoBehaviour
 {
     [SerializeField] private List<Text> menuOptions;
     [SerializeField] private MenuManager menuManager;
-    [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private TransitionController transitionController;
 
@@ -19,14 +19,12 @@ public class MenuNavigation : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
     private bool _confirm;
-    private bool _transition;
     private bool _changedOption;
 
     private void Start()
     {
         //EventManager.EnterEvent+=
-        audioSource = FindObjectOfType<AudioSource>();
-        audioManager = audioSource.GetComponent<AudioManager>();
+        audioManager = FindObjectOfType<AudioManager>();
         transitionController = FindObjectOfType<TransitionController>();
         menuManager = GetComponentInParent<MenuManager>();
         menuOptions = menuManager.GetMenuList();
@@ -41,23 +39,30 @@ public class MenuNavigation : MonoBehaviour
     {
         _horizontalInput = Input.GetAxis("Horizontal");
         _verticalInput = Input.GetAxis("Vertical");
-        if (_verticalInput == 0 && _horizontalInput == 0)
+        _confirm = Input.GetKey(KeyCode.Return);
+        if (_confirm && selection.text == "New Game")
         {
-            _changedOption = false;
-            return;
-        }
-        if (_verticalInput > 0 && !_changedOption)
-        {
-            positionIndex++;
             _changedOption = true;
-            audioSource.Play();
+            audioManager.PlayLoadSound();
+            transitionController._fadeToBlack = true;
         }
-        if (_verticalInput < 0 && !_changedOption)
+        switch (_verticalInput)
         {
-            positionIndex--;
-            _changedOption = true;
-            audioSource.Play();
+            case 0 when _horizontalInput == 0:
+                _changedOption = false;
+                return;
+            case > 0 when !_changedOption:
+                positionIndex++;
+                _changedOption = true;
+                audioManager.PlayNavSound();
+                break;
+            case < 0 when !_changedOption:
+                positionIndex--;
+                _changedOption = true;
+                audioManager.PlayNavSound();
+                break;
         }
+
         if (positionIndex < 0)
         {
             positionIndex = menuOptions.Count - 1;
@@ -68,13 +73,6 @@ public class MenuNavigation : MonoBehaviour
             positionIndex = 0;
             _changedOption = true;
         }
-
-        if (_confirm && selection.text == "New Game")
-        {
-            _transition = true;
-            audioManager.ChangeAudioClip();
-            
-        }
     }
 
     private void LateUpdate()
@@ -84,13 +82,5 @@ public class MenuNavigation : MonoBehaviour
             menuOptions.ElementAt(positionIndex).transform.position.y - 6f, 
             menuOptions.ElementAt(positionIndex).transform.position.z);
         selection = menuOptions.ElementAt(positionIndex);
-        if (_transition && selection.text == "New Game")
-        {
-            audioSource.Play();
-            transitionController.FadeToBlack();
-            
-            //audioManager.ChangeAudioClip();
-            //audioSource.Play();
-        }
     }
 }
