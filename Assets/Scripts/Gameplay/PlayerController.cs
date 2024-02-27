@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
         _myAnim.SetFloat(MoveY, _body.velocity.y);
         if(freedom == 4)
         {
-            TransitionController.fad
+            //TransitionController.fad
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
