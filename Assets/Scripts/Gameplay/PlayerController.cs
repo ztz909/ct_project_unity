@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     private float _speed = 5.0f;
     Rigidbody2D _body;
     Animator _myAnim;
-    [SerializeField]
-    int freedom;
+    [SerializeField] int freedom;
+    [SerializeField] private TransitionController _transitionController;
 
     private static readonly int MoveX = Animator.StringToHash("moveX");
     private static readonly int MoveY = Animator.StringToHash("moveY");
@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     {
         _body = GetComponent<Rigidbody2D>();
         _myAnim = GetComponent<Animator>();
+        _transitionController = new TransitionController();
         freedom = 0;
     }
 
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
         _myAnim.SetFloat(MoveY, _body.velocity.y);
         if(freedom == 4)
         {
+            TransitionController.fad
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
@@ -46,5 +48,10 @@ public class PlayerController : MonoBehaviour
     public void IncreaseFreedom()
     {
         freedom++;
+    }
+
+    public int GetFreedom()
+    {
+        return freedom;
     }
 }

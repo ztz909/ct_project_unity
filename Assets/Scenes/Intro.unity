@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 68351247}
   - component: {fileID: 68351249}
   - component: {fileID: 68351248}
+  - component: {fileID: 68351250}
   m_Layer: 5
   m_Name: Words
   m_TagString: Untagged
@@ -173,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -204,6 +205,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 68351246}
   m_CullTransparentMesh: 1
+--- !u!114 &68351250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 68351246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2052db23c0fa8342aa7e07537c5f6f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 68351248}
+  transitionSpeed: 0.5
+  fadeToBlack: 0
+  fadeFromBlack: 0
 --- !u!1 &657853773
 GameObject:
   m_ObjectHideFlags: 0

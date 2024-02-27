@@ -5,24 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class Escape : MonoBehaviour
 {
+
+    [SerializeField] private GameObject effect;
+    //[SerializeField] private Transform target;
     
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private float _smoothing = 1.0f;
+    private Vector3 targetPosition;
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
-        {
-            gameObject.SetActive(false);
-            FindObjectOfType<PlayerController>().IncreaseFreedom();
-        }
+        if (!collision.CompareTag("Player")) return;
+        Instantiate(effect, transform.position, transform.rotation);
+        FindObjectOfType<PlayerController>().IncreaseFreedom();
+        Destroy(gameObject);
     }
 }

@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TransitionController : MonoBehaviour
@@ -8,8 +8,8 @@ public class TransitionController : MonoBehaviour
     [SerializeField] private Image blackScreen;
     [SerializeField] private float transitionSpeed;
 
-    public bool _fadeFromBlack;
-    public bool _fadeToBlack;
+    public bool fadeFromBlack;
+    public bool fadeToBlack;
 
     public void FadeToBlack()
     {
@@ -18,7 +18,7 @@ public class TransitionController : MonoBehaviour
             Mathf.MoveTowards(blackScreen.color.a, 1f, transitionSpeed * Time.deltaTime));
         if (Math.Abs(blackScreen.color.a - 1.0f) < .0001f)
         {
-            _fadeToBlack = false;
+            fadeToBlack = false;
         }
     }
 
@@ -28,17 +28,22 @@ public class TransitionController : MonoBehaviour
             Mathf.MoveTowards(blackScreen.color.a, 0f, transitionSpeed * Time.deltaTime));
         if (blackScreen.color.a == 0f)
         {
-            _fadeFromBlack = false;
+            fadeFromBlack = false;
         }
+    }
+
+    public void LoadIntro()
+    {
+        SceneManager.LoadScene("Intro", LoadSceneMode.Single);
     }
 
     private void Update()
     {
-        if (_fadeFromBlack)
+        if (fadeFromBlack)
         {
             FadeFromBlack();
         }
-        else if (_fadeToBlack)
+        else if (fadeToBlack)
         {
             FadeToBlack();
         }
@@ -46,6 +51,6 @@ public class TransitionController : MonoBehaviour
 
     private void Start()
     {
-        _fadeFromBlack = true;
+        fadeFromBlack = true;
     }
 }

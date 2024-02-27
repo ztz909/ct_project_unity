@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 public class MenuNavigation : MonoBehaviour
@@ -19,6 +17,7 @@ public class MenuNavigation : MonoBehaviour
     private float _horizontalInput;
     private float _verticalInput;
     private bool _confirm;
+    private bool _transition;
     private bool _changedOption;
 
     private void Start()
@@ -42,21 +41,22 @@ public class MenuNavigation : MonoBehaviour
         _confirm = Input.GetKey(KeyCode.Return);
         if (_confirm && selection.text == "New Game")
         {
+            _transition = true;
             _changedOption = true;
             audioManager.PlayLoadSound();
-            transitionController._fadeToBlack = true;
+            transitionController.fadeToBlack = true;
         }
         switch (_verticalInput)
         {
-            case 0 when _horizontalInput == 0:
+            case 0 when _horizontalInput == 0 && !_transition:
                 _changedOption = false;
                 return;
-            case > 0 when !_changedOption:
+            case > 0 when !_changedOption && !_transition:
                 positionIndex++;
                 _changedOption = true;
                 audioManager.PlayNavSound();
                 break;
-            case < 0 when !_changedOption:
+            case < 0 when !_changedOption && !_transition:
                 positionIndex--;
                 _changedOption = true;
                 audioManager.PlayNavSound();
@@ -77,10 +77,21 @@ public class MenuNavigation : MonoBehaviour
 
     private void LateUpdate()
     {
-        transform.position = new Vector3(
-            menuOptions.ElementAt(positionIndex).transform.position.x - 96.5f,
-            menuOptions.ElementAt(positionIndex).transform.position.y - 6f, 
-            menuOptions.ElementAt(positionIndex).transform.position.z);
+        VisualizeMenu();
+        if(_transition && !transitionController.fadeToBlack)
+            transitionController.LoadIntro();
+    }
+
+    private void VisualizeMenu()
+    {
+        if (!_transition)
+        {
+            transform.position = new Vector3(
+                menuOptions.ElementAt(positionIndex).transform.position.x - 96.5f,
+                menuOptions.ElementAt(positionIndex).transform.position.y - 6f,
+                menuOptions.ElementAt(positionIndex).transform.position.z);
+        }
+
         selection = menuOptions.ElementAt(positionIndex);
     }
 }
